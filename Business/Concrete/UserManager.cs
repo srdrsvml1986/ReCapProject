@@ -8,22 +8,22 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class ColorManager : IColorService
+    public class UserManager : IUserService
     {
-        IColorDal _colorDal;
+        IUserDal _userDal;
 
-        public ColorManager(IColorDal colorDal)
+        public UserManager(IUserDal colorDal)
         {
-            _colorDal = colorDal;
+            _userDal = colorDal;
         }
 
-        public Result Add(Color entity)
+        public Result Add(User entity)
         {
-            _colorDal.Add(entity);
+            _userDal.Add(entity);
             return new SuccessResult();
         }
 
-        public Result AddRange(List<Color> entities)
+        public Result AddRange(List<User> entities)
         {
             foreach (var item in entities)
             {
@@ -32,20 +32,20 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public Result Delete(Color entity)
+        public Result Delete(User entity)
         {
-            _colorDal.Delete(entity);
+            _userDal.Delete(entity);
             return new SuccessResult();
         }
 
-        public DataResult<List<Color>> GetAll()
+        public DataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
-        public Result Update(Color entity)
+        public Result Update(User entity)
         {
-            _colorDal.Update(entity);
+            _userDal.Update(entity);
             return new SuccessResult();
         }
     }

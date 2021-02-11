@@ -7,8 +7,14 @@ namespace Entities.Concrete
 {
     public class Brand : IEntity
     {
-        public int BrandID { get; set; }
-        public string BrandName { get; set; }
-        public string  BrandModel { get; set; }
+        public Brand()
+        {
+            Cars = new HashSet<Car>();
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string  Model { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

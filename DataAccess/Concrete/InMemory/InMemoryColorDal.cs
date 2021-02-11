@@ -15,11 +15,11 @@ namespace DataAccess.Concrete.InMemory
         {
             _colors = new List<Color>
             {
-                new Color{ ColorName = "White"},
-                new Color{ ColorName = "Black"},
-                new Color{ ColorName= "Grey"},
-                new Color{ ColorName= "Blue" },
-                new Color{ ColorName= "Red" }
+                new Color{ Name = "White"},
+                new Color{ Name = "Black"},
+                new Color{ Name= "Grey"},
+                new Color{ Name= "Blue" },
+                new Color{ Name= "Red" }
             };
         }
         public void Add(Color entity)
@@ -29,13 +29,13 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Color entity)
         {
-            Color colorToDelete = _colors.SingleOrDefault(c => c.ColorID == entity.ColorID);
+            Color colorToDelete = _colors.SingleOrDefault(c => c.Id == entity.Id);
             _colors.Remove(colorToDelete);
         }
 
         public Color Get(int id)
         {
-            return _colors.SingleOrDefault(c=> c.ColorID == id);
+            return _colors.SingleOrDefault(c=> c.Id == id);
         }
 
         public Color Get(Expression<Func<Color, bool>> filter = null)
@@ -55,9 +55,9 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Color entity)
         {
-            Color colorToUpdate = _colors.SingleOrDefault(c => c.ColorID == entity.ColorID);
-            colorToUpdate.ColorID = entity.ColorID;
-            colorToUpdate.ColorName = entity.ColorName;
+            Color colorToUpdate = _colors.SingleOrDefault(c => c.Id == entity.Id);
+            colorToUpdate.Id = entity.Id;
+            colorToUpdate.Name = entity.Name;
         }
     }
 }

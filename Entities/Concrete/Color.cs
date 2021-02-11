@@ -7,7 +7,12 @@ namespace Entities.Concrete
 {
     public class Color : IEntity
     {
-        public int ColorID { get; set; }
-        public string ColorName { get; set; }
+        public Color()
+        {
+            Cars = new HashSet<Car>();
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

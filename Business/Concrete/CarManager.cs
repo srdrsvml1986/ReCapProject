@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,29 +18,41 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car entity)
+        public Result Add(Car entity)
         {
-            _carDal.Add(entity);
+          _carDal.Add(entity);
+            return new SuccessResult();
         }
 
-        public void Delete(Car entity)
+        public Result AddRange(List<Car> entity)
+        {
+            foreach (var item in entity)
+            {
+                Add(item);
+            }
+            return new SuccessResult();
+        }
+
+        public Result Delete(Car entity)
         {
             _carDal.Delete(entity);
+            return new SuccessResult();
         }
 
-        public List<Car> GetAll()
+        public DataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public DataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public void Update(Car entity)
+        public Result Update(Car entity)
         {
             _carDal.Update(entity);
+            return new SuccessResult();
         }
     }
 }

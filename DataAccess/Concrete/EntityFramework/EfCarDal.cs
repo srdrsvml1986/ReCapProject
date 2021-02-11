@@ -15,12 +15,12 @@ namespace DataAccess.EntityFramework
             {
                 var result = from ca in context.Cars
                              join renk in context.Colors
-                             on ca.CarColorID equals renk.ColorID
-                             join b in context.Brands on ca.CarBrandID equals b.BrandID
+                             on ca.ColorID equals renk.Id
+                             join b in context.Brands on ca.BrandID equals b.Id
                              select new CarDetailDto { 
-                             CarID=ca.CarID,
-                             CarBrandName=b.BrandName,
-                             CarColorName=renk.ColorName,
+                             CarID=ca.ID,
+                             CarBrandName=b.Name,
+                             CarColorName=renk.Name,
                              DailyPrice=ca.DailyPrice,
                              ModelYear=ca.ModelYear,
                              Description=ca.Description

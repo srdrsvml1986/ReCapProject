@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,24 +17,36 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        public DataResult<List<Brand>> GetAll()
         {
-           return _brandDal.GetAll();
+           return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
    
-        public void Update(Brand brand)
+        public Result Update(Brand brand)
         {
             _brandDal.Update(brand);
+            return new SuccessResult();
         }
 
-        public void Add(Brand brand)
+        public Result Add(Brand brand)
         {
             _brandDal.Add(brand);
+            return new SuccessResult();
         }
 
-        public void Delete(Brand brand)
+        public Result Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult();
+        }
+
+        public Result AddRange(List<Brand> entities)
+        {
+            foreach (var item in entities)
+            {
+                Add(item);
+            }
+            return new SuccessResult();
         }
     }
 }

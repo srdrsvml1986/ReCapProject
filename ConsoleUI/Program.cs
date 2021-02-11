@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using ConsoleTables;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Concrete.InMemory;
@@ -13,18 +14,57 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //NewMethod();
-            DtoSample();
+            //DtoSample();
+
+            InsertDefaultDataOnDatabase();
+
+        }
+
+        private static void InsertDefaultDataOnDatabase()
+        {
+
+            UserManager userManagerEf = new UserManager(new EfUserDal());
+            if (userManagerEf.GetAll().Data.Count == 0)
+            {
+                UserManager userManagerMemory = new UserManager(new InMemoryUserDal());
+
+
+                userManagerEf.AddRange(userManagerMemory.GetAll().Data);
+
+                CustomerManager customerManagerMemory = new CustomerManager(new InMemoryCustomerDal());
+                CustomerManager customerManagerEf = new CustomerManager(new EfCustomerDal());
+
+                customerManagerEf.AddRange(customerManagerMemory.GetAll().Data);
+
+                ColorManager colorManagerMemory = new ColorManager(new InMemoryColorDal());
+                ColorManager colorManagerEf = new ColorManager(new EfColorDal());
+
+                colorManagerEf.AddRange(colorManagerMemory.GetAll().Data);
+
+                BrandManager brandManagerMemory = new BrandManager(new InMemoryBrandDal());
+                BrandManager brandManagerEf = new BrandManager(new EfBrandDal());
+
+                brandManagerEf.AddRange(brandManagerMemory.GetAll().Data);
+
+                CarManager carManagerMemory = new CarManager(new InMemoryCarDal());
+                CarManager carManagerEf = new CarManager(new EfCarDal());
+
+                carManagerEf.AddRange(carManagerMemory.GetAll().Data);
+
+                RentalManager rentalManagerMemory = new RentalManager(new InMemoryRentalDal());
+                RentalManager rentalManagerEf = new RentalManager(new EfRentalDal());
+
+                rentalManagerEf.AddRange(rentalManagerMemory.GetAll().Data);
+
+                Console.WriteLine("Örnek veriler yüklendi.");
+            }
+
         }
 
         private static void DtoSample()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var item in carManager.GetCarDetails())
-            {
-                Console.WriteLine("{0} -- {1} -- {2} -- {3} -- {4}", item.CarID,
-                    item.Description, item.CarBrandName, item.CarColorName,
-                    item.DailyPrice, item.ModelYear);
-            }
+            ConsoleTable.From(carManager.GetCarDetails().Data).Write();
         }
 
         private static void NewMethod()
@@ -32,25 +72,15 @@ namespace ConsoleUI
             #region GetAll
             BrandManager brandManager2 = new BrandManager(new EfBrandDal());
 
-            foreach (var brand in brandManager2.GetAll())
-            {
-                Console.WriteLine("Brand Name: {0}\nBrand Model: {1}\n", brand.BrandName, brand.BrandModel);
-            }
+            ConsoleTable.From(brandManager2.GetAll().Data).Write();
 
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            foreach (var brand in colorManager.GetAll())
-            {
-                Console.WriteLine("ColorName: {0}\n", brand.ColorName);
-
-            }
+            ConsoleTable.From(colorManager.GetAll().Data).Write();
 
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var brand in carManager.GetAll())
-            {
-                Console.WriteLine("CarName: {0}\nCar DailyPrice: {1}\n", brand.Description, brand.DailyPrice);
-            }
+            ConsoleTable.From(carManager.GetAll().Data).Write();
 
             #endregion
 

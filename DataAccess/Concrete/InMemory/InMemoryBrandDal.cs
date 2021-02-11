@@ -15,11 +15,11 @@ namespace DataAccess.Concrete.InMemory
         {
             _brands = new List<Brand>
             {
-                new Brand{BrandName= "Citroen", BrandModel = "DS7 Crossback"},
-                new Brand{BrandName= "Jeep", BrandModel = "Renegade"},
-                new Brand{BrandName= "Mini Cooper", BrandModel = "Countryman"},
-                new Brand{BrandName= "Audi", BrandModel = "A3"},
-                new Brand{BrandName= "Mercedes", BrandModel = "CLA"}
+                new Brand{Name= "Citroen", Model = "DS7 Crossback"},
+                new Brand{Name= "Jeep", Model = "Renegade"},
+                new Brand{Name= "Mini Cooper", Model = "Countryman"},
+                new Brand{Name= "Audi", Model = "A3"},
+                new Brand{Name= "Mercedes", Model = "CLA"}
             };
         }
         public void Add(Brand entity)
@@ -29,13 +29,13 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Brand entity)
         {
-            Brand colorToDelete = _brands.SingleOrDefault(b => b.BrandID == entity.BrandID);
+            Brand colorToDelete = _brands.SingleOrDefault(b => b.Id == entity.Id);
             _brands.Remove(colorToDelete);
         }
 
         public Brand Get(int id)
         {
-            return _brands.SingleOrDefault(b=> b.BrandID == id);
+            return _brands.SingleOrDefault(b=> b.Id == id);
         }
 
         public Brand Get(Expression<Func<Brand, bool>> filter = null)
@@ -56,10 +56,10 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Brand entity)
         {
-            Brand brandToUpdate = _brands.SingleOrDefault(b => b.BrandID == entity.BrandID);
-            brandToUpdate.BrandID = entity.BrandID;
-            brandToUpdate.BrandName = entity.BrandName;
-            brandToUpdate.BrandModel = entity.BrandModel;
+            Brand brandToUpdate = _brands.SingleOrDefault(b => b.Id == entity.Id);
+            brandToUpdate.Id = entity.Id;
+            brandToUpdate.Name = entity.Name;
+            brandToUpdate.Model = entity.Model;
         }
     }
 }
