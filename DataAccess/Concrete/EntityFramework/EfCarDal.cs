@@ -5,7 +5,7 @@ using Entities.DTOs;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataAccess.EntityFramework
+namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
@@ -18,7 +18,7 @@ namespace DataAccess.EntityFramework
                              on ca.ColorID equals renk.Id
                              join b in context.Brands on ca.BrandID equals b.Id
                              select new CarDetailDto { 
-                             CarID=ca.ID,
+                             CarID=ca.Id,
                              CarBrandName=b.Name,
                              CarColorName=renk.Name,
                              DailyPrice=ca.DailyPrice,

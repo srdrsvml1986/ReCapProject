@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Contants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -10,17 +11,17 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalDal _userDal;
+        IRentalDal _rentalDal;
 
         public RentalManager(IRentalDal colorDal)
         {
-            _userDal = colorDal;
+            _rentalDal = colorDal;
         }
 
         public Result Add(Rental entity)
         {
-            _userDal.Add(entity);
-            return new SuccessResult();
+            _rentalDal.Add(entity);
+            return new SuccessResult(Messages.Added);
         }
 
         public Result AddRange(List<Rental> entities)
@@ -29,24 +30,27 @@ namespace Business.Concrete
             {
                 Add(item);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
         public Result Delete(Rental entity)
         {
-            _userDal.Delete(entity);
-            return new SuccessResult();
+            _rentalDal.Delete(entity);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public DataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_userDal.GetAll());
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ItemsListed);
         }
-
+        public DataResult<Rental> GetById(int id)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(x => x.Id == id), Messages.ItemGetted);
+        }
         public Result Update(Rental entity)
         {
-            _userDal.Update(entity);
-            return new SuccessResult();
+            _rentalDal.Update(entity);
+            return new SuccessResult(Messages.ItemUpdated);
         }
     }
 }

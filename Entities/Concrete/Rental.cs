@@ -18,7 +18,7 @@ namespace Entities.Concrete
         public int CustomerId { get; set; }
         public DateTime Date { get; set; }
         public Nullable<DateTime> ReturnDate { get; set; }
-        public virtual Car Car { get; set; }
-        public virtual Customer Customer { get; set; }
+        public Car Car { get; set; }
+        public Customer Customer { get; set; }
     }
 }

@@ -9,17 +9,13 @@ using System.Text;
 namespace Entities.Concrete
 {
     public class Customer : IEntity
-    {
-        public Customer()
-        {
-            Rentals = new HashSet<Rental>();
-        }
+    {    
         public int Id { get; set; }
         
         [ForeignKey("UserId")]
         public int UserId { get; set; }
         public string CompanyName { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Rental> Rentals { get; set; }
+        public User User { get; set; }
+        public ICollection<Rental> Rentals { get; set; }
     }
 }

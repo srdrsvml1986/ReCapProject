@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface IRentalService
     {
         DataResult<List<Rental>> GetAll();
+        DataResult<Rental> GetById(int id);
         Result Update(Rental entity);
         Result Add(Rental entity);
         Result AddRange(List<Rental> entities);

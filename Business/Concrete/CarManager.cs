@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,11 +20,11 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public Result Add(Car entity)
         {
           _carDal.Add(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
         public Result AddRange(List<Car> entity)
@@ -30,29 +33,34 @@ namespace Business.Concrete
             {
                 Add(item);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
         public Result Delete(Car entity)
         {
             _carDal.Delete(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.Deleted);
         }
 
         public DataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ItemsListed);
+        }
+
+        public DataResult<Car> GetById(int id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
 
         public DataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.ItemGetted);
         }
 
         public Result Update(Car entity)
         {
             _carDal.Update(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ItemUpdated);
         }
     }
 }

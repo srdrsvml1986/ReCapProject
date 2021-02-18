@@ -3,7 +3,7 @@ using ConsoleTables;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Concrete.InMemory;
-using DataAccess.EntityFramework;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 
@@ -16,11 +16,13 @@ namespace ConsoleUI
             //NewMethod();
             //DtoSample();
 
-            InsertDefaultDataOnDatabase();
+            InsertSampleDataOnDatabase();
+
+
 
         }
 
-        private static void InsertDefaultDataOnDatabase()
+        private static void InsertSampleDataOnDatabase()
         {
 
             UserManager userManagerEf = new UserManager(new EfUserDal());

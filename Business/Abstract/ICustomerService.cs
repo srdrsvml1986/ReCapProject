@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface ICustomerService
     {
         DataResult<List<Customer>> GetAll();
+        DataResult<Customer> GetById(int id);
         Result Update(Customer entity);
         Result Add(Customer entity);
         Result AddRange(List<Customer> entities);

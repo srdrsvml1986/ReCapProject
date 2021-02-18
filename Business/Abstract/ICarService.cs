@@ -10,6 +10,7 @@ namespace Business.Abstract
     public interface ICarService
     {
         DataResult<List<Car>> GetAll();
+        DataResult<Car> GetById(int id);
         Result Update(Car entity);
         Result Add(Car entity);
         Result AddRange(List<Car> entities);

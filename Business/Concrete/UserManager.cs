@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Contants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,7 +21,7 @@ namespace Business.Concrete
         public Result Add(User entity)
         {
             _userDal.Add(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
         public Result AddRange(List<User> entities)
@@ -29,24 +30,27 @@ namespace Business.Concrete
             {
                 Add(item);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
         public Result Delete(User entity)
         {
             _userDal.Delete(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.Deleted);
         }
 
         public DataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.ItemsListed);
         }
-
+        public DataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(x => x.Id == id), Messages.ItemGetted);
+        }
         public Result Update(User entity)
         {
             _userDal.Update(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ItemUpdated);
         }
     }
 }

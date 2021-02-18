@@ -32,13 +32,13 @@ namespace DataAccess.Concrete
 
         public void Delete(Car entity)
         {
-            Car carToDelete = _cars.SingleOrDefault(c=> c.ID == entity.ID);
+            Car carToDelete = _cars.SingleOrDefault(c=> c.Id == entity.Id);
             _cars.Remove(carToDelete);
         }
 
         public Car Get(int id)
         {
-            return _cars.SingleOrDefault(c=> c.ID == id);
+            return _cars.SingleOrDefault(c=> c.Id == id);
         }
 
         public Car Get(Expression<Func<Car, bool>> filter = null)
@@ -63,8 +63,8 @@ namespace DataAccess.Concrete
 
         public void Update(Car entity)
         {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.ID == entity.ID);
-            carToUpdate.ID = entity.ID;
+            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == entity.Id);
+            carToUpdate.Id = entity.Id;
             carToUpdate.ColorID = entity.ColorID;
             carToUpdate.BrandID = entity.BrandID;
             carToUpdate.DailyPrice = entity.DailyPrice;

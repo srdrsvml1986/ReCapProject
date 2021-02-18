@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
-namespace DataAccess.EntityFramework
+namespace DataAccess.Concrete.EntityFramework
 {
     public class RentACarContext:DbContext
     {
@@ -20,8 +21,7 @@ namespace DataAccess.EntityFramework
         public DbSet<Rental> Rentals { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
-           
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

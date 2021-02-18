@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface IUserService
     {
         DataResult<List<User>> GetAll();
+        DataResult<User> GetById(int id);
         Result Update(User entity);
         Result Add(User entity);
         Result AddRange(List<User> entities);

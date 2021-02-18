@@ -2,7 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Concrete;
 
-namespace DataAccess.EntityFramework
+namespace DataAccess.Concrete.EntityFramework
 {
     public class EfColorDal : EfEntityRepositoryBase<Color, RentACarContext>, IColorDal
     {
