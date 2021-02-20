@@ -26,7 +26,7 @@ namespace Business.Concrete
           _carDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public Result AddRange(List<Car> entity)
         {
             foreach (var item in entity)
@@ -35,7 +35,7 @@ namespace Business.Concrete
             }
             return new SuccessResult(Messages.Added);
         }
-
+        
         public Result Delete(Car entity)
         {
             _carDal.Delete(entity);
@@ -56,7 +56,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.ItemGetted);
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public Result Update(Car entity)
         {
             _carDal.Update(entity);

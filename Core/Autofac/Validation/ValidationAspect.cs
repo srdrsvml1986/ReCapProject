@@ -12,7 +12,10 @@ namespace Core.Autofac.Validation
     public class ValidationAspect:MethodInterception
     {
         private readonly Type _validatorType;
-
+        /// <summary>
+        /// Gönderilen validatorType ın FluentValidation olup olmadığı denetlenir
+        /// </summary>
+        /// <param name="validatorType"></param>
         public ValidationAspect(Type validatorType)
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
@@ -21,10 +24,16 @@ namespace Core.Autofac.Validation
             }
             _validatorType = validatorType;
         }
+        /// <summary>
+        ///  Activator ile validatorun yeni bir instance alınır
+        /// </summary>
+        /// <param name="invocation"></param>
         protected override void OnBefore(IInvocation invocation)
         {
             var validator = (IValidator)Activator.CreateInstance(_validatorType);
+            //GetGenericArguments gabliba sürekli olarak 1 elaman taşıyor 
             var entityType = _validatorType.BaseType.GetGenericArguments()[0];
+            //entityType={Name = "Car" FullName = "Entities.Concrete.Car"} şeklinde oluyor
             var entities = invocation.Arguments.Where(t=>t.GetType()==entityType);
             foreach (var entity in entities)
             {

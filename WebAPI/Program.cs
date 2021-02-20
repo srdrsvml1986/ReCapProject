@@ -18,7 +18,11 @@ namespace WebAPI
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        /// <summary>
+        /// Autofac sadece IoC yapýsýný saðlamak için kullanýlýyor
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureContainer<ContainerBuilder>(builder => {

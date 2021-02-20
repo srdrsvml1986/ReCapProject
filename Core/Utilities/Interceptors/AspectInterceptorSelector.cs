@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Core.Utilities.Interceptors
 {
+    /// <summary>
+    /// MethodInterceptionBaseAttribute ten referans alınan
+    /// tüm Interceptor lerin get edilmesini sağlar 
+    /// </summary>
     public class AspectInterceptorSelector : IInterceptorSelector
     {
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)

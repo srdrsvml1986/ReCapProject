@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);             
         }   
 
-        [HttpPost("addcolor")]
+        [HttpPost("add")]
         public IActionResult AddColor(Color color)
         {
             var result = _Colorservice.Add(color);
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPut("updatecolor")]
+        [HttpPut("update")]
         public IActionResult UpdateColor(Color color)
         {
             var result = _Colorservice.Update(color);
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPut("deletecolor")]
+        [HttpPut("delete")]
         public IActionResult DeleteColor(Color color)
         {
             var result = _Colorservice.Delete(color);

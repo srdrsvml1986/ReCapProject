@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
+    /// <summary>
+    /// FluentValidator dan inherit edilen validator
+    /// </summary>
     public class CarValidator : AbstractValidator<Car>
     {
         public CarValidator()

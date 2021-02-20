@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Interceptors
 {
+    /// <summary>
+    /// base sınıftan inherit edilen abstact MethodInterception sınıfı ValidationAspect Attributeslerimizin 
+    /// çalışma sırası ve evenleri için overload bırakır
+    /// </summary>
     public abstract class MethodInterception:MethodInterceptionBaseAttribute
     {
         protected virtual void OnBefore(IInvocation invocation) { }
