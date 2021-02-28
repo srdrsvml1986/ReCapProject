@@ -1,11 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -17,14 +21,19 @@ namespace Business.Concrete
         {
             _userDal = colorDal;
         }
-
-        public Result Add(User entity)
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult Add(User entity)
         {
+            var result = BusinessRules.Run(CheckUserCount());
+            if (result!=null)
+            {
+                return result;
+            }
             _userDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
-
-        public Result AddRange(List<User> entities)
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult AddRange(List<User> entities)
         {
             foreach (var item in entities)
             {
@@ -33,24 +42,30 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
 
-        public Result Delete(User entity)
+        public IResult Delete(User entity)
         {
             _userDal.Delete(entity);
             return new SuccessResult(Messages.Deleted);
         }
 
-        public DataResult<List<User>> GetAll()
+        public IDataResult<List<User>> GetAll(Expression<Func<User, bool>> expression = null)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.ItemsListed);
+          return new SuccessDataResult<List<User>>(_userDal.GetAll(expression).OrderBy(x=>x.Id).ToList(), Messages.ItemsListed);
         }
-        public DataResult<User> GetById(int id)
+
+        public IDataResult<User> GetById(int id)
         {
             return new SuccessDataResult<User>(_userDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
-        public Result Update(User entity)
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult Update(User entity)
         {
             _userDal.Update(entity);
             return new SuccessResult(Messages.ItemUpdated);
+        }
+        private IResult CheckUserCount() 
+        {
+            return new SuccessDataResult<int>(_userDal.GetAll().Count);
         }
     }
 }

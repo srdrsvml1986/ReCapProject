@@ -1,10 +1,13 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -33,6 +36,11 @@ namespace DataAccess.Concrete.InMemory
             _colors.Remove(colorToDelete);
         }
 
+        public Task<int> Execute(FormattableString interpolatedQueryString)
+        {
+            throw new NotImplementedException();
+        }
+
         public Color Get(int id)
         {
             return _colors.SingleOrDefault(c=> c.Id == id);
@@ -53,11 +61,83 @@ namespace DataAccess.Concrete.InMemory
             return _colors.ToList();
         }
 
+        public Task<IEnumerable<Color>> GetAllAsync(Expression<Func<Color, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Color> GetAsync(Expression<Func<Color, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount(Expression<Func<Color, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCountAsync(Expression<Func<Color, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+   
+
+        public Task<IEnumerable<Color>> GetListAsync(Expression<Func<Color, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbSet<Color> GetTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Color GetTest(Expression<Func<Color, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResult InTransaction<TResult>(Func<TResult> action, Action successAction = null, Action<Exception> exceptionAction = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Color> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Color entity)
         {
             Color colorToUpdate = _colors.SingleOrDefault(c => c.Id == entity.Id);
             colorToUpdate.Id = entity.Id;
             colorToUpdate.Name = entity.Name;
+        }
+
+        Color IEntityRepository<Color>.Add(Color entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IEntityRepository<Color>.GetCountAsync(Expression<Func<Color, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        Color IEntityRepository<Color>.Update(Color entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

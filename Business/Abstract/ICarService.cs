@@ -3,18 +3,19 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Abstract
 {
     public interface ICarService
     {
-        DataResult<List<Car>> GetAll();
-        DataResult<Car> GetById(int id);
-        Result Update(Car entity);
-        Result Add(Car entity);
-        Result AddRange(List<Car> entities);
-        Result Delete(Car entity);
-        DataResult<List<CarDetailDto>> GetCarDetails();
+        IDataResult<List<Car>> GetAll(Expression<Func<Car, bool>> expression = null);
+        IDataResult<Car> GetById(int id);
+        IResult Update(Car entity);
+        IResult Add(Car entity);
+        IResult AddRange(List<Car> entities);
+        IResult Delete(Car entity);
+        IDataResult<List<CarDetailDto>> GetCarDetails();
     }
 }

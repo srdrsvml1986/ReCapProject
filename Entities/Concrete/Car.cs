@@ -16,9 +16,9 @@ namespace Entities.Concrete
         public short ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
-        public Brand Brand { get; set; }
-        public Color Color { get; set; }
-
-        public ICollection<Rental> Rentals { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual Color Color { get; set; }
+        public virtual ICollection<CarImage> CarImages { get; set; } = new HashSet<CarImage>();
+        public virtual ICollection<Rental> Rentals { get; set; } = new HashSet<Rental>();
     }
 }

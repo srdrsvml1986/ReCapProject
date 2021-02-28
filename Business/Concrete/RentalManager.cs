@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,14 +20,14 @@ namespace Business.Concrete
         {
             _rentalDal = colorDal;
         }
-
-        public Result Add(Rental entity)
+        [ValidationAspect(typeof(RentalValidator))]
+        public IResult Add(Rental entity)
         {
             _rentalDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
-
-        public Result AddRange(List<Rental> entities)
+        [ValidationAspect(typeof(RentalValidator))]
+        public IResult AddRange(List<Rental> entities)
         {
             foreach (var item in entities)
             {
@@ -33,21 +36,23 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
 
-        public Result Delete(Rental entity)
+        public IResult Delete(Rental entity)
         {
             _rentalDal.Delete(entity);
             return new SuccessResult(Messages.Deleted);
+        }     
+
+        public IDataResult<List<Rental>> GetAll(Expression<Func<Rental, bool>> expression = null)
+        {
+             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(expression), Messages.ItemsListed);
         }
 
-        public DataResult<List<Rental>> GetAll()
-        {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ItemsListed);
-        }
-        public DataResult<Rental> GetById(int id)
+        public IDataResult<Rental> GetById(int id)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
-        public Result Update(Rental entity)
+        [ValidationAspect(typeof(RentalValidator))]
+        public IResult Update(Rental entity)
         {
             _rentalDal.Update(entity);
             return new SuccessResult(Messages.ItemUpdated);

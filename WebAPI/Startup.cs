@@ -35,7 +35,7 @@ namespace WebAPI
 
             //services.AddSingleton<IRentalService, RentalManager>();
             //services.AddSingleton<IRentalDal,EfRentalDal>();
-            
+
             //services.AddSingleton<IBrandService, BrandManager>();
             //services.AddSingleton<IBrandDal,EfBrandDal>();
 
@@ -44,6 +44,11 @@ namespace WebAPI
 
             //services.AddSingleton<IUserService, UserManager>();
             //services.AddSingleton<IUserDal, EfUserDal>();
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

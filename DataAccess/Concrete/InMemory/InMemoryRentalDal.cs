@@ -1,10 +1,13 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -30,6 +33,11 @@ namespace DataAccess.Concrete.InMemory
             _rental.Remove(colorToDelete);
         }
 
+        public Task<int> Execute(FormattableString interpolatedQueryString)
+        {
+            throw new NotImplementedException();
+        }
+
         public Rental Get(int id)
         {
             return _rental.SingleOrDefault(c=> c.Id == id);
@@ -50,6 +58,63 @@ namespace DataAccess.Concrete.InMemory
             return _rental.ToList();
         }
 
+        public Task<IEnumerable<Rental>> GetAllAsync(Expression<Func<Rental, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Rental> GetAsync(Expression<Func<Rental, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount(Expression<Func<Rental, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCountAsync(Expression<Func<Rental, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+  
+
+        public Task<IEnumerable<Rental>> GetListAsync(Expression<Func<Rental, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbSet<Rental> GetTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Rental GetTest(Expression<Func<Rental, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResult InTransaction<TResult>(Func<TResult> action, Action successAction = null, Action<Exception> exceptionAction = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Rental> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Rental entity)
         {
             Rental colorToUpdate = _rental.SingleOrDefault(c => c.Id == entity.Id);
@@ -58,6 +123,21 @@ namespace DataAccess.Concrete.InMemory
             colorToUpdate.CustomerId = entity.CustomerId;
             colorToUpdate.Date = entity.Date;
             colorToUpdate.ReturnDate = entity.ReturnDate;
+        }
+
+        Rental IEntityRepository<Rental>.Add(Rental entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IEntityRepository<Rental>.GetCountAsync(Expression<Func<Rental, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        Rental IEntityRepository<Rental>.Update(Rental entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

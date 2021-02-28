@@ -8,7 +8,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -21,13 +21,13 @@ namespace Business.Concrete
             _carDal = carDal;
         }
         [ValidationAspect(typeof(CarValidator))]
-        public Result Add(Car entity)
+        public IResult Add(Car entity)
         {
           _carDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
         [ValidationAspect(typeof(CarValidator))]
-        public Result AddRange(List<Car> entity)
+        public IResult AddRange(List<Car> entity)
         {
             foreach (var item in entity)
             {
@@ -36,28 +36,29 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
         
-        public Result Delete(Car entity)
+        public IResult Delete(Car entity)
         {
             _carDal.Delete(entity);
             return new SuccessResult(Messages.Deleted);
-        }
+        }      
 
-        public DataResult<List<Car>> GetAll()
+        public IDataResult<List<Car>> GetAll(Expression<Func<Car, bool>> expression = null)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ItemsListed);
+             return new SuccessDataResult<List<Car>>(_carDal.GetAll(expression), Messages.ItemsListed);
         }
 
-        public DataResult<Car> GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == id), Messages.ItemGetted);
-        }
+        }      
 
-        public DataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.ItemGetted);
         }
+
         [ValidationAspect(typeof(CarValidator))]
-        public Result Update(Car entity)
+        public IResult Update(Car entity)
         {
             _carDal.Update(entity);
             return new SuccessResult(Messages.ItemUpdated);

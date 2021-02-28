@@ -1,11 +1,14 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
@@ -36,6 +39,11 @@ namespace DataAccess.Concrete
             _cars.Remove(carToDelete);
         }
 
+        public Task<int> Execute(FormattableString interpolatedQueryString)
+        {
+            throw new NotImplementedException();
+        }
+
         public Car Get(int id)
         {
             return _cars.SingleOrDefault(c=> c.Id == id);
@@ -56,7 +64,63 @@ namespace DataAccess.Concrete
             return _cars;
         }
 
+        public Task<IEnumerable<Car>> GetAllAsync(Expression<Func<Car, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Car> GetAsync(Expression<Func<Car, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount(Expression<Func<Car, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCountAsync(Expression<Func<Car, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+ 
+
+        public Task<IEnumerable<Car>> GetListAsync(Expression<Func<Car, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbSet<Car> GetTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car GetTest(Expression<Func<Car, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResult InTransaction<TResult>(Func<TResult> action, Action successAction = null, Action<Exception> exceptionAction = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Car> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
         {
             throw new NotImplementedException();
         }
@@ -69,6 +133,21 @@ namespace DataAccess.Concrete
             carToUpdate.BrandID = entity.BrandID;
             carToUpdate.DailyPrice = entity.DailyPrice;
             carToUpdate.Description = entity.Description;
+        }
+
+        Car IEntityRepository<Car>.Add(Car entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IEntityRepository<Car>.GetCountAsync(Expression<Func<Car, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        Car IEntityRepository<Car>.Update(Car entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

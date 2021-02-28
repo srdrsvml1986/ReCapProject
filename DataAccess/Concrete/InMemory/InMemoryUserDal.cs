@@ -1,10 +1,13 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -30,6 +33,11 @@ namespace DataAccess.Concrete.InMemory
             _user.Remove(colorToDelete);
         }
 
+        public Task<int> Execute(FormattableString interpolatedQueryString)
+        {
+            throw new NotImplementedException();
+        }
+
         public User Get(int id)
         {
             return _user.SingleOrDefault(c=> c.Id == id);
@@ -50,6 +58,63 @@ namespace DataAccess.Concrete.InMemory
             return _user.ToList();
         }
 
+        public Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> GetAsync(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCountAsync(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+  
+
+        public Task<IEnumerable<User>> GetListAsync(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbSet<User> GetTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetTest(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResult InTransaction<TResult>(Func<TResult> action, Action successAction = null, Action<Exception> exceptionAction = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<User> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(User entity)
         {
             User colorToUpdate = _user.SingleOrDefault(c => c.Id == entity.Id);
@@ -58,6 +123,21 @@ namespace DataAccess.Concrete.InMemory
             colorToUpdate.LastName = entity.LastName;
             colorToUpdate.Email = entity.Email;
             colorToUpdate.Password = entity.Password;
+        }
+
+        User IEntityRepository<User>.Add(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> IEntityRepository<User>.GetCountAsync(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        User IEntityRepository<User>.Update(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

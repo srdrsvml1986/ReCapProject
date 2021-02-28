@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.Configurations
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.HasKey(x => x.Id);
-             
+            builder.HasOne(x => x.User).WithOne(x=>x.Customer);
         }
     }
 }

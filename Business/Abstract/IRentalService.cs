@@ -2,17 +2,18 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Abstract
 {
     public interface IRentalService
     {
-        DataResult<List<Rental>> GetAll();
-        DataResult<Rental> GetById(int id);
-        Result Update(Rental entity);
-        Result Add(Rental entity);
-        Result AddRange(List<Rental> entities);
-        Result Delete(Rental entity);
+        IDataResult<List<Rental>> GetAll(Expression<Func<Rental, bool>> expression = null);
+        IDataResult<Rental> GetById(int id);
+        IResult Update(Rental entity);
+        IResult Add(Rental entity);
+        IResult AddRange(List<Rental> entities);
+        IResult Delete(Rental entity);
     }
 }

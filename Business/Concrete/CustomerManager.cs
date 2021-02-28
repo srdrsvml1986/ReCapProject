@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,14 +20,14 @@ namespace Business.Concrete
         {
             _customerDal = colorDal;
         }
-
-        public Result Add(Customer entity)
+        [ValidationAspect(typeof(CustomerValidator))]
+        public IResult Add(Customer entity)
         {
             _customerDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
-
-        public Result AddRange(List<Customer> entities)
+[ValidationAspect(typeof(CustomerValidator))]
+        public IResult AddRange(List<Customer> entities)
         {
             foreach (var item in entities)
             {
@@ -33,21 +36,23 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
 
-        public Result Delete(Customer entity)
+        public IResult Delete(Customer entity)
         {
             _customerDal.Delete(entity);
             return new SuccessResult(Messages.Deleted);
+        }     
+
+        public IDataResult<List<Customer>> GetAll(Expression<Func<Customer, bool>> expression = null)
+        {
+             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(expression), Messages.ItemsListed);
         }
 
-        public DataResult<List<Customer>> GetAll()
-        {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.ItemsListed);
-        }
-        public DataResult<Customer> GetById(int id)
+        public IDataResult<Customer> GetById(int id)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
-        public Result Update(Customer entity)
+        [ValidationAspect(typeof(CustomerValidator))]
+        public IResult Update(Customer entity)
         {
             _customerDal.Update(entity);
             return new SuccessResult(Messages.ItemUpdated);

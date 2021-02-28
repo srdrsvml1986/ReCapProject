@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.DataAccess.EntityFramework
 {
@@ -12,15 +13,24 @@ namespace Core.DataAccess.EntityFramework
     where TEntity : class, IEntity, new()
     where TContext : DbContext, new()
     {
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 context.Entry(entity).State = EntityState.Added;
                 context.SaveChanges();
             }
+            return entity;
         }
-
+        public TEntity Update(TEntity entity)
+        {
+            using (TContext context = new TContext())
+            {
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            return entity;
+        }
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())
@@ -45,15 +55,37 @@ namespace Core.DataAccess.EntityFramework
                 return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
             }
         }
-
-        public void Update(TEntity entity)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null)
         {
             using (TContext context = new TContext())
             {
-                context.Entry(entity).State = EntityState.Modified;
-                context.SaveChanges();
+                return expression == null ? await context.Set<TEntity>().ToListAsync() :await context.Set<TEntity>().Where(expression).ToListAsync();
+            }
+        }
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            using (TContext context = new TContext())
+            {
+                return await context.Set<TEntity>().SingleOrDefaultAsync(expression);
+            }
+        }    
+
+        public IQueryable<TEntity> Query()
+        {
+            using (TContext context = new TContext())
+            {
+                return context.Set<TEntity>();
             }
         }
 
+        public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> expression = null)
+        {
+            return await Query().CountAsync();
+        }
+
+        public int GetCount(Expression<Func<TEntity, bool>> expression = null)
+        {
+              return Query().Count();
+        }
     }
 }

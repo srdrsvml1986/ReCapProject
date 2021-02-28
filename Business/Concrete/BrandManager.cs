@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,40 +20,42 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-
-        public DataResult<List<Brand>> GetAll()
-        {
-           return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.ItemsListed);
-        }
-   
-        public Result Update(Brand brand)
+ 
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
             return new SuccessResult(Messages.ItemUpdated);
         }
-
-        public Result Add(Brand brand)
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult(Messages.Added);
         }
 
-        public Result Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.Deleted);
         }
-        public DataResult<Brand> GetById(int id)
+        public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(x => x.Id == id),Messages.ItemGetted);
+            return new SuccessDataResult<Brand>(_brandDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
-        public Result AddRange(List<Brand> entities)
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult AddRange(List<Brand> entities)
         {
             foreach (var item in entities)
             {
                 Add(item);
             }
             return new SuccessResult(Messages.Added);
+        }
+
+        public IDataResult<List<Brand>> GetAll(Expression<Func<Brand, bool>> expression = null)
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(expression), Messages.ItemsListed);
         }
     }
 }

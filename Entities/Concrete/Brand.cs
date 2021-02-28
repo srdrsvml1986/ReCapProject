@@ -11,6 +11,6 @@ namespace Entities.Concrete
         public string Name { get; set; }
         public string  Model { get; set; }
 
-        public ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
     }
 }

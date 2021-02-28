@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,14 +20,14 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
-        public Result Add(Color entity)
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Add(Color entity)
         {
             _colorDal.Add(entity);
             return new SuccessResult(Messages.Added);
         }
 
-        public Result AddRange(List<Color> entities)
+        public IResult AddRange(List<Color> entities)
         {
             foreach (var item in entities)
             {
@@ -33,21 +36,23 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
 
-        public Result Delete(Color entity)
+        public IResult Delete(Color entity)
         {
             _colorDal.Delete(entity);
             return new SuccessResult(Messages.Deleted);
         }
-
-        public DataResult<List<Color>> GetAll()
+       
+        public IDataResult<List<Color>> GetAll(Expression<Func<Color, bool>> expression = null)
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ItemsListed);
         }
-        public DataResult<Color> GetById(int id)
+
+        public IDataResult<Color> GetById(int id)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
-        public Result Update(Color entity)
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Update(Color entity)
         {
             _colorDal.Update(entity);
             return new SuccessResult(Messages.ItemUpdated);

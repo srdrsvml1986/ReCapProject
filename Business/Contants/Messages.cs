@@ -16,5 +16,7 @@ namespace Business.Contants
         public static string ItemsListed = "Öğeler Listelendi";
         public static string ItemGetted = "Öğeler alındı";
         public static string ItemUpdated = "Öğe güncellendi";
+        public static string ImageMaxCount= "Bir arabanın en fazla 5 resmi olabilir";
+        public static string CarImageLimitExceeded = "More than 5 images cannot be added";
     }
 }

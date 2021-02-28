@@ -2,17 +2,17 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
     public interface IUserService
     {
-        DataResult<List<User>> GetAll();
-        DataResult<User> GetById(int id);
-        Result Update(User entity);
-        Result Add(User entity);
-        Result AddRange(List<User> entities);
-        Result Delete(User entity);
+        IDataResult<List<User>> GetAll(Expression<Func<User, bool>> expression=null);
+        IDataResult<User> GetById(int id);
+        IResult Update(User entity);
+        IResult Add(User entity);
+        IResult AddRange(List<User> entities);
+        IResult Delete(User entity);
     }
 }

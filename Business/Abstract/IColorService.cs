@@ -2,17 +2,18 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Abstract
 {
     public interface IColorService
     {
-        DataResult<List<Color>> GetAll();
-        DataResult<Color> GetById(int id);
-        Result Update(Color entity);
-        Result Add(Color entity);
-        Result AddRange(List<Color> entities);
-        Result Delete(Color entity);
+        IDataResult<List<Color>> GetAll(Expression<Func<Color, bool>> expression = null);
+        IDataResult<Color> GetById(int id);
+        IResult Update(Color entity);
+        IResult Add(Color entity);
+        IResult AddRange(List<Color> entities);
+        IResult Delete(Color entity);
     }
 }

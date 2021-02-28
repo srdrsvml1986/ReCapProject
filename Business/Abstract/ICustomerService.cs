@@ -2,17 +2,18 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Abstract
 {
     public interface ICustomerService
     {
-        DataResult<List<Customer>> GetAll();
-        DataResult<Customer> GetById(int id);
-        Result Update(Customer entity);
-        Result Add(Customer entity);
-        Result AddRange(List<Customer> entities);
-        Result Delete(Customer entity);
+        IDataResult<List<Customer>> GetAll(Expression<Func<Customer, bool>> expression = null);
+        IDataResult<Customer> GetById(int id);
+        IResult Update(Customer entity);
+        IResult Add(Customer entity);
+        IResult AddRange(List<Customer> entities);
+        IResult Delete(Customer entity);
     }
 }

@@ -4,14 +4,16 @@ using DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(RentACarContext))]
-    partial class RentACarContextModelSnapshot : ModelSnapshot
+    [Migration("20210228113159_CarImageAdded2")]
+    partial class CarImageAdded2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,7 +90,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarImages");
+                    b.ToTable("CarImage");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Color", b =>
@@ -201,13 +203,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.CarImage", b =>
                 {
-                    b.HasOne("Entities.Concrete.Car", "Car")
+                    b.HasOne("Entities.Concrete.Car", null)
                         .WithMany("CarImages")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Customer", b =>
