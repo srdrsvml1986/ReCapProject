@@ -1,7 +1,8 @@
 ﻿using Business.Abstract;
-using Business.Contants;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -17,9 +18,9 @@ namespace Business.Concrete
     {
         IUserDal _userDal;
 
-        public UserManager(IUserDal colorDal)
+        public UserManager(IUserDal userDal)
         {
-            _userDal = colorDal;
+            _userDal = userDal;
         }
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User entity)

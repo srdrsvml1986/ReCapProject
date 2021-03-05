@@ -1,12 +1,14 @@
 ﻿using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
-namespace Business.Contants
+namespace Business.Constants
 {
     public static class Messages
     {
+        public static string AuthorizationDenied="Authorization Denied";
         public static string Added = "Eklendi";
         public static string Deleted = "Silindi";
         public static string InvalidName = "öğre ismi geçersiz";

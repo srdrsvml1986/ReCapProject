@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,8 +14,8 @@ namespace DataAccess.Concrete.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Email).HasMaxLength(50);
-             
-             
+            
+
         }
     }
 }

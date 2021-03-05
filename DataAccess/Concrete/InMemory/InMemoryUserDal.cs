@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,8 @@ namespace DataAccess.Concrete.InMemory
         {
             _user = new List<User>
             {
-                new User{ FirstName = "x1",LastName="y1",Password="1234",Email="x@y.com"},
-                new User{ FirstName = "x2",LastName="y2",Password="1234",Email="x@y.com"},
+                //new User{ FirstName = "x1",LastName="y1",Password="1234",Email="x@y.com"},
+                //new User{ FirstName = "x2",LastName="y2",Password="1234",Email="x@y.com"},
             };
         }
         public void Add(User entity)
@@ -27,10 +28,20 @@ namespace DataAccess.Concrete.InMemory
             _user.Add(entity);
         }
 
+        public OperationClaim Add(OperationClaim entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(User entity)
         {
             User colorToDelete = _user.SingleOrDefault(c => c.Id == entity.Id);
             _user.Remove(colorToDelete);
+        }
+
+        public void Delete(OperationClaim entity)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<int> Execute(FormattableString interpolatedQueryString)
@@ -46,7 +57,12 @@ namespace DataAccess.Concrete.InMemory
         public User Get(Expression<Func<User, bool>> filter = null)
         {
             throw new NotImplementedException();
-        }     
+        }
+
+        public OperationClaim Get(Expression<Func<OperationClaim, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<User> GetAll()
         {
@@ -58,7 +74,17 @@ namespace DataAccess.Concrete.InMemory
             return _user.ToList();
         }
 
+        public List<OperationClaim> GetAll(Expression<Func<OperationClaim, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<OperationClaim>> GetAllAsync(Expression<Func<OperationClaim, bool>> expression = null)
         {
             throw new NotImplementedException();
         }
@@ -68,7 +94,17 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public Task<OperationClaim> GetAsync(Expression<Func<OperationClaim, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetCount(Expression<Func<User, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount(Expression<Func<OperationClaim, bool>> expression = null)
         {
             throw new NotImplementedException();
         }
@@ -78,7 +114,10 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
-  
+        public Task<int> GetCountAsync(Expression<Func<OperationClaim, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<IEnumerable<User>> GetListAsync(Expression<Func<User, bool>> expression = null)
         {
@@ -122,7 +161,12 @@ namespace DataAccess.Concrete.InMemory
             colorToUpdate.FirstName = entity.FirstName;
             colorToUpdate.LastName = entity.LastName;
             colorToUpdate.Email = entity.Email;
-            colorToUpdate.Password = entity.Password;
+            //colorToUpdate.Password = entity.Password;
+        }
+
+        public OperationClaim Update(OperationClaim entity)
+        {
+            throw new NotImplementedException();
         }
 
         User IEntityRepository<User>.Add(User entity)
@@ -131,6 +175,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         Task<int> IEntityRepository<User>.GetCountAsync(Expression<Func<User, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        IQueryable<User> IEntityRepository<User>.Query()
         {
             throw new NotImplementedException();
         }

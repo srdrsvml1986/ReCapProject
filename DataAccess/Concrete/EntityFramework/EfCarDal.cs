@@ -18,7 +18,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on ca.ColorID equals renk.Id
                              join b in context.Brands on ca.BrandID equals b.Id
                              select new CarDetailDto { 
-                             CarID=ca.Id,
+                             Id=ca.Id,
                              CarBrandName=b.Name,
                              CarColorName=renk.Name,
                              DailyPrice=ca.DailyPrice,
