@@ -5,7 +5,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserClaimDalDal : EfEntityRepositoryBase<UserClaim, RentACarContext>, IUserClaimDal
+    public class EfUserClaimDal : EfEntityRepositoryBase<UserClaim, RentACarContext>, IUserClaimDal
     {
       
     }

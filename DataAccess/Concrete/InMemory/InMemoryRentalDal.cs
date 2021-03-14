@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,11 @@ namespace DataAccess.Concrete.InMemory
   
 
         public Task<IEnumerable<Rental>> GetListAsync(Expression<Func<Rental, bool>> expression = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RentalDetailDto> GetRentalDetails()
         {
             throw new NotImplementedException();
         }

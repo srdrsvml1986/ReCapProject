@@ -14,8 +14,6 @@ namespace DataAccess.Concrete.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Email).HasMaxLength(50);
-            
-
         }
     }
 }

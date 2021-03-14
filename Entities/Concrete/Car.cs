@@ -10,9 +10,9 @@ namespace Entities.Concrete
     {      
         public int Id { get; set; }
         [ForeignKey("BrandID")]
-        public int BrandID { get; set; }
+        public int BrandId { get; set; }
         [ForeignKey("ColorID")]
-        public int ColorID { get; set; }
+        public int ColorId { get; set; }
         public short ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }

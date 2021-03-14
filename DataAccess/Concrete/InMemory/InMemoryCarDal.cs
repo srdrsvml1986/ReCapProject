@@ -20,11 +20,11 @@ namespace DataAccess.Concrete
         {
             _cars = new List<Car>
             {
-                new Car{ BrandID=1, ColorID=5, ModelYear=2018, DailyPrice= 180, Description="5 Adult / 2 Suitcase / Automatic Shift / Diesel"  },
-                new Car{ BrandID=3, ColorID=2, ModelYear=2016, DailyPrice= 220, Description="5 Adult / 3 Suitcase / Manual Shift / Gas"  },
-                new Car{ BrandID=4, ColorID=4, ModelYear=2013, DailyPrice= 230, Description="4 Adult / 3 Suitcase / Automatic Shift / Diesel"  },
-                new Car{ BrandID=2, ColorID=3, ModelYear=2014, DailyPrice= 210, Description="5 Adult / 2 Suitcase / Manual Shift / Gas"  },
-                new Car{ BrandID=5, ColorID=1, ModelYear=2017, DailyPrice= 240, Description="4 Adult / 3 Suitcase / Automatic Shift / Diesel"  }
+                new Car{ BrandId=1, ColorId=5, ModelYear=2018, DailyPrice= 180, Description="5 Adult / 2 Suitcase / Automatic Shift / Diesel"  },
+                new Car{ BrandId=3, ColorId=2, ModelYear=2016, DailyPrice= 220, Description="5 Adult / 3 Suitcase / Manual Shift / Gas"  },
+                new Car{ BrandId=4, ColorId=4, ModelYear=2013, DailyPrice= 230, Description="4 Adult / 3 Suitcase / Automatic Shift / Diesel"  },
+                new Car{ BrandId=2, ColorId=3, ModelYear=2014, DailyPrice= 210, Description="5 Adult / 2 Suitcase / Manual Shift / Gas"  },
+                new Car{ BrandId=5, ColorId=1, ModelYear=2017, DailyPrice= 240, Description="4 Adult / 3 Suitcase / Automatic Shift / Diesel"  }
             };
         }
 
@@ -129,8 +129,8 @@ namespace DataAccess.Concrete
         {
             Car carToUpdate = _cars.SingleOrDefault(c => c.Id == entity.Id);
             carToUpdate.Id = entity.Id;
-            carToUpdate.ColorID = entity.ColorID;
-            carToUpdate.BrandID = entity.BrandID;
+            carToUpdate.ColorId = entity.ColorId;
+            carToUpdate.BrandId = entity.BrandId;
             carToUpdate.DailyPrice = entity.DailyPrice;
             carToUpdate.Description = entity.Description;
         }
