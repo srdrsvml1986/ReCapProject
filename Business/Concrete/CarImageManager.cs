@@ -64,6 +64,7 @@ namespace Business.Concrete
             var carImagecount = _carImageDal.GetAll(p => p.CarId == carid).Count;
             if (carImagecount >= 5)
             {
+
                 return new ErrorResult(Messages.CarImageLimitExceeded);
             }
 
