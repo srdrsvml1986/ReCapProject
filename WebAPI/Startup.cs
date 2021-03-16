@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IO;
 
 namespace WebAPI
 {
@@ -29,6 +31,7 @@ namespace WebAPI
 
             services.AddControllers();
             services.AddCors();
+            services.AddDirectoryBrowser();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
@@ -74,7 +77,23 @@ namespace WebAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseDirectoryBrowser();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();// For the wwwroot folder
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                            Path.Combine(Directory.GetCurrentDirectory(), "Uploads/Images")),
+                RequestPath = "/Uploads/Images"
+            });
+            //Enable directory browsing
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                            Path.Combine(Directory.GetCurrentDirectory(), "Uploads/Images")),
+                RequestPath = "/Uploads/Images"
+            });
             app.UseRouting();
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());

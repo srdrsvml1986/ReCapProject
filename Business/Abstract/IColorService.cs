@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -15,5 +16,6 @@ namespace Business.Abstract
         IResult Add(Color entity);
         IResult AddRange(List<Color> entities);
         IResult Delete(Color entity);
+        IDataResult<List<CarDetailDto>> GetCars(int colorId);
     }
 }

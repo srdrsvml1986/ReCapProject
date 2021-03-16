@@ -19,7 +19,7 @@ namespace Core.Utilities.Helpers
             }
             var result = newPath(file);
             File.Move(sourcepath, result);
-            return result;
+            return result.Replace(Environment.CurrentDirectory + @"\Uploads\Images\", "");
         }
         public static IResult Delete(string path)
         {
@@ -45,7 +45,7 @@ namespace Core.Utilities.Helpers
                 }
             }
             File.Delete(sourcePath);
-            return result;
+            return result.Replace(Environment.CurrentDirectory + @"\Uploads\Images\", "");
         }
         private static string newPath(IFormFile file)
         {

@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public Task<Color> GetAsync(Expression<Func<Color, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCars(int colorId)
         {
             throw new NotImplementedException();
         }

@@ -11,12 +11,18 @@ namespace WebAPI.Controllers
         ICarService _carService;
         ICarImageService _carImageService;
         IRentalService _rentalService;
+        IBrandService _brandService;
+        IColorService _colorService;
 
-        public CarsController(ICarService carService, ICarImageService carImageService, IRentalService rentalService)
+        public CarsController(ICarService carService,
+            ICarImageService carImageService,
+            IRentalService rentalService, IColorService colorService, IBrandService brandService)
         {
             _carService = carService;
             _carImageService = carImageService;
             _rentalService = rentalService;
+            _colorService = colorService;
+            _brandService = brandService;
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
@@ -33,6 +39,7 @@ namespace WebAPI.Controllers
         {
             var imgs = _carImageService.GetImagesByCarId(id);
             var rentals = _rentalService.GetAll(x=>x.CarId==id);
+            
             var result=_carService.GetById(id);
             foreach (var img in imgs.Data)
             {
@@ -42,7 +49,9 @@ namespace WebAPI.Controllers
             {
                 result.Data.Rentals.Add(rental);
             }
-
+             
+            result.Data.Color=_colorService.GetById(result.Data.ColorId).Data;
+            result.Data.Brand = _brandService.GetById(result.Data.BrandId).Data;
             if (result.Success)
             {
                 return Ok(result);

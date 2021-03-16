@@ -5,6 +5,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -56,6 +57,11 @@ namespace Business.Concrete
         public IDataResult<List<Brand>> GetAll(Expression<Func<Brand, bool>> expression = null)
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(expression), Messages.ItemsListed);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCars(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_brandDal.GetCars(id), Messages.ItemsListed);
         }
     }
 }

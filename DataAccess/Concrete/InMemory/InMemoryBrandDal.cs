@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<Car> GetCars(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetCount(Expression<Func<Brand, bool>> expression = null)
         {
             throw new NotImplementedException();
@@ -133,6 +139,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         Brand IEntityRepository<Brand>.Add(Brand entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<CarDetailDto> IBrandDal.GetCars(int brandId)
         {
             throw new NotImplementedException();
         }

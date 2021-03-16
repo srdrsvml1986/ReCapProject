@@ -5,6 +5,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -51,6 +52,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Color>(_colorDal.Get(x => x.Id == id), Messages.ItemGetted);
         }
+
+        public IDataResult<List<CarDetailDto>> GetCars(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_colorDal.GetCars(colorId), Messages.ItemsListed);
+        }
+
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color entity)
         {
